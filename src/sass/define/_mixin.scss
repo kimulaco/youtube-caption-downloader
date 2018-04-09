@@ -1,0 +1,13 @@
+@mixin media($min-width: $BREAK_POINT) {
+  @media screen and (min-width: $min-width) {
+    @content;
+  }
+}
+
+@mixin hover() {
+  &:hover,
+  &:focus,
+  &:active {
+    @content;
+  }
+}

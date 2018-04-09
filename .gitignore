@@ -1,0 +1,15 @@
+# directory
+node_modules/
+/test/
+/static
+
+# files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.DS_Store
+npm-debug.log*
+package-lock.json

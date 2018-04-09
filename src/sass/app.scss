@@ -1,0 +1,14 @@
+@import "./define/_variable.scss";
+@import "./define/_mixin.scss";
+@import "./define/_elements.scss";
+
+/* ===========================
+ * .app
+ * =========================*/
+.app {
+  &__inner {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 10px;
+  }
+}
