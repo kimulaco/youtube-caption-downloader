@@ -15,6 +15,14 @@
     </section><!-- /.downloader__section -->
 
     <transition name="downloader__animation--slide">
+      <div class="downloader__section" v-if="videoId">
+        <div class="downloader__media">
+          <iframe width="600" height="240" v-bind:src="`https://www.youtube.com/embed/${videoId}`" class="downloader__media-iframe"></iframe>
+        </div><!-- /.downloader__media -->
+      </div><!-- /.downloader__section -->
+    </transition>
+
+    <transition name="downloader__animation--slide">
       <section class="downloader__section" v-if="hasCapture">
         <h2 class="downloader__heading">
           <label class="downloader__heading-inner" for="form-lang">Language</label>
@@ -46,9 +54,9 @@
     </transition>
 
     <transition name="downloader__animation--slide">
-      <section class="downloader__section" v-if="noCapture">
+      <div class="downloader__section" v-if="noCapture">
         <p><small>No caption.</small></p>
-      </section><!-- /.downloader__section -->
+      </div><!-- /.downloader__section -->
     </transition>
   </div>
 </template>
