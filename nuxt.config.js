@@ -1,7 +1,15 @@
 const pkg = require('./package')
 
+const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+  router: {
+    base: '/kamigami-quiz/'
+  }
+} : {}
+
 module.exports = {
   mode: 'spa',
+  loading: false,
+  ...routerBase,
   htmlAttrs: {
     lang: 'ja'
   },
@@ -13,11 +21,13 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ]
   },
-  loading: false,
   modules: [
     '@nuxtjs/axios',
     'nuxt-buefy'
   ],
+  generate: {
+    dir: 'docs'
+  },
   build: {
     extend(config, ctx) {
       if (ctx.isDev && ctx.isClient) {
