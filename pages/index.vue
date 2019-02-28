@@ -29,16 +29,27 @@
         />
       </b-field>
 
-      <a
+      <button
         class="button is-primary is-medium"
-        @click="downloadCaption"
-      >Download</a>
+        @click="copyCaption"
+      >Copy to clipboard</button>
+
+      <b-notification
+        :active="notification.success"
+        type="is-success"
+      >Copied to clipboard.</b-notification>
+
+      <b-notification
+        :active="notification.failed"
+        type="is-danger"
+      >Copy failed.</b-notification>
     </template>
   </section>
 </template>
 
 <script>
 import youtubeCaption from '@/plugins/youtube-caption'
+import copyText from '@/plugins/copyText'
 
 export default {
   name: 'PageIndex',
@@ -47,7 +58,11 @@ export default {
     return {
       languages: [],
       selectedLanguageCode: '',
-      caption: ''
+      caption: '',
+      notification: {
+        success: false,
+        failed: false
+      }
     }
   },
   computed: {
@@ -113,8 +128,19 @@ export default {
 
       return languageName
     },
-    downloadCaption() {
-      console.log(this.caption)
+    showNotification(key, time) {
+      this.notification[key] = true
+
+      setTimeout(() => {
+        this.notification[key] = false
+      }, time || 3000)
+    },
+    copyCaption() {
+      if (copyText(this.caption)) {
+        this.showNotification('success')
+      } else {
+        this.showNotification('failed')
+      }
     }
   },
   created() {
@@ -124,4 +150,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.button {
+  margin-bottom: 1.5rem;
+}
 </style>
