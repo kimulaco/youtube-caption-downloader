@@ -45,33 +45,23 @@ export default {
   components: {},
   data() {
     return {
-      videoUrl: '',
       languages: [],
       selectedLanguageCode: '',
       caption: ''
     }
   },
   computed: {
-    videoId() {
-      return youtubeCaption.getVideoIdByUrl(this.videoUrl)
+    videoUrl: {
+      get() { return this.$store.state.videoUrl },
+      set(url) { this.$store.commit('setVideoUrl', url) }
     },
-    enabledLanguages() {
-      return this.languages.length > 0
-    },
-    enabledCaption() {
-      return !!this.caption
-    }
+    videoId() { return youtubeCaption.getVideoIdByUrl(this.videoUrl) },
+    enabledLanguages() { return this.languages.length > 0 },
+    enabledCaption() { return !!this.caption }
   },
   watch: {
     videoUrl(url) {
-      youtubeCaption.getLanguagesByUrl(url).then((languages) => {
-        this.languages = languages
-      }).catch((error) => {
-        this.languages = []
-        this.selectedLanguageCode = ''
-
-        console.error(error)
-      })
+      this.updateVideoUrl(url)
     },
     selectedLanguageCode(languageCode) {
       const languageName = this.getLangudegeNamebyCode(languageCode)
@@ -102,6 +92,16 @@ export default {
     }
   },
   methods: {
+    updateVideoUrl(url) {
+      youtubeCaption.getLanguagesByUrl(url).then((languages) => {
+        this.languages = languages
+      }).catch((error) => {
+        this.languages = []
+        this.selectedLanguageCode = ''
+
+        console.error(error)
+      })
+    },
     getLangudegeNamebyCode(languageCode) {
       let languageName = ''
 
@@ -116,6 +116,9 @@ export default {
     downloadCaption() {
       console.log(this.caption)
     }
+  },
+  created() {
+    this.updateVideoUrl(this.videoUrl)
   }
 }
 </script>
