@@ -25,6 +25,9 @@ module.exports = {
     '@nuxtjs/axios',
     'nuxt-buefy'
   ],
+  css: [
+    '@/assets/scss/buefy.scss'
+  ],
   generate: {
     dir: 'docs'
   },

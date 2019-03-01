@@ -5,10 +5,15 @@
         v-model="videoUrl"
         placeholder="https://www.youtube.com/watch?v=XXXXXXXXXXX"
         type="url"
+        autofocus
       />
     </b-field>
 
     <template v-if="enabledCaption">
+      <youtube-player
+        :src="`http://www.youtube.com/embed/${videoId}`"
+      />
+
       <b-field label="Language">
         <b-select
           v-model="selectedLanguageCode"
@@ -50,10 +55,13 @@
 <script>
 import youtubeCaption from '@/plugins/youtube-caption'
 import copyText from '@/plugins/copyText'
+import YoutubePlayer from '@/components/modules/YoutubePlayer'
 
 export default {
   name: 'PageIndex',
-  components: {},
+  components: {
+    YoutubePlayer
+  },
   data() {
     return {
       languages: [],
@@ -106,6 +114,9 @@ export default {
       }
     }
   },
+  created() {
+    this.updateVideoUrl(this.videoUrl)
+  },
   methods: {
     updateVideoUrl(url) {
       youtubeCaption.getLanguagesByUrl(url).then((languages) => {
@@ -142,15 +153,13 @@ export default {
         this.showNotification('failed')
       }
     }
-  },
-  created() {
-    this.updateVideoUrl(this.videoUrl)
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.button {
+.button,
+.youtube {
   margin-bottom: 1.5rem;
 }
 </style>
