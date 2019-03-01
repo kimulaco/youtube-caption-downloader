@@ -11,7 +11,7 @@
 
     <template v-if="enabledCaption">
       <youtube-player
-        :src="`http://www.youtube.com/embed/${videoId}`"
+        :videoId="videoId"
       />
 
       <b-field label="Language">

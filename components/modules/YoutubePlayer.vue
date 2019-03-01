@@ -2,7 +2,10 @@
   <div
     class="youtube-player"
   >
-    <div class="inner">
+    <div
+      v-if="videoId"
+      class="inner"
+    >
       <iframe
         class="iframe"
         type="text/html"
@@ -18,7 +21,7 @@
 export default {
   name: 'YoutubePlayer',
   props: {
-    src: {
+    videoId: {
       type: String,
       default: ''
     },
@@ -29,6 +32,11 @@ export default {
     height: {
       type: Number,
       default: 360
+    }
+  },
+  computed: {
+    src() {
+      return `https://www.youtube.com/embed/${this.videoId}`
     }
   }
 }
