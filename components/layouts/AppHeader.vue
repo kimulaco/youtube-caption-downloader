@@ -5,7 +5,7 @@
       role="navigation"
       aria-label="main navigation"
     >
-      <div class="inner">
+      <div class="inner container">
         <h1 class="navbar-brand">
           <router-link
             class="navbar-item"
@@ -25,11 +25,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.app-header {
-  .inner {
-    width: 100%;
-    max-width: 960px;
-    margin: 0 auto;
-  }
-}
 </style>
