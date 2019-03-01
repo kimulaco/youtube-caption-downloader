@@ -10,10 +10,8 @@
     </b-field>
 
     <template v-if="enabledCaption">
-      <youtube
-        class="youtube"
-        ref="youtube"
-        :video-id="videoId"
+      <youtube-player
+        :src="`http://www.youtube.com/embed/${videoId}`"
       />
 
       <b-field label="Language">
@@ -55,15 +53,15 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import VueYoutube from 'vue-youtube'
 import youtubeCaption from '@/plugins/youtube-caption'
 import copyText from '@/plugins/copyText'
-
-Vue.use(VueYoutube)
+import YoutubePlayer from '@/components/modules/YoutubePlayer'
 
 export default {
   name: 'PageIndex',
+  components: {
+    YoutubePlayer
+  },
   data() {
     return {
       languages: [],
